@@ -14,15 +14,16 @@ VERSION=$1
 
 cd /tmp
 cp -rv /io/debian /io/ubuntu .
-for triplet in ubuntu:xenial:xUbuntu_16.04 ubuntu:bionic:xUbuntu_18.04 ubuntu:focal:xUbuntu_20.04
+for triplet in ubuntu:xenial:xUbuntu_16.04
+#ubuntu:bionic:xUbuntu_18.04 ubuntu:focal:xUbuntu_20.04
 do
   distro=`echo "${triplet}" | cut -d ":" -f 1`
   code=`echo "${triplet}" | cut -d ":" -f 2`
   tag=`echo "${triplet}" | cut -d ":" -f 3`
-  wget --no-check-certificate --recursive --no-parent -A.deb -P deb/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
-  for debfile in `ls deb/${distro}/${code}`
+  wget -e robots=off --no-check-certificate --recursive --no-parent -A.deb -P deb/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
+  tree deb/${distro}/${code}/
+  for debfile in `ls deb/${distro}/${code}/`
   do
-    echo "deb=${debfile}"
     reprepro --basedir ${distro} includedeb ${code} deb/${distro}/${code}/${debfile}
   done
 done

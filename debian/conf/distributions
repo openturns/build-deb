@@ -1,0 +1,23 @@
+Codename: bullseye
+Architectures: i386 amd64 source
+Components: main
+Contents: . .gz .bz2
+SignWith: F5789553
+
+Codename: buster
+Architectures: i386 amd64 source
+Components: main
+Contents: . .gz .bz2
+SignWith: F5789553
+
+Codename: stretch
+Architectures: i386 amd64 source
+Components: main 
+Contents: . .gz .bz2
+SignWith: F5789553
+
+Codename: jessie
+Architectures: i386 amd64 source
+Components: main 
+Contents: . .gz .bz2
+SignWith: F5789553

@@ -1,0 +1,17 @@
+Codename: focal
+Architectures: i386 amd64 source
+Components: main
+Contents: . .gz .bz2
+#SignWith: F5789553
+
+Codename: bionic
+Architectures: i386 amd64 source
+Components: main 
+Contents: . .gz .bz2
+#SignWith: F5789553
+
+Codename: xenial
+Architectures: i386 amd64 source
+Components: main 
+Contents: . .gz .bz2
+#SignWith: F5789553

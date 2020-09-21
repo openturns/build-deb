@@ -1,0 +1,30 @@
+language: generic
+
+services:
+  - docker
+
+env:
+  global:
+    - VERSION=1.15
+
+install:
+  - docker build . -t debian
+
+script:
+  - docker run -v `pwd`:/io debian /io/run_docker_build.sh ${VERSION} `id -u` `id -g`
+
+after_success:
+  - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0
+  - git clone --depth 1 https://${GH_TOKEN}@github.com/openturns/openturns.github.io.git
+  - REPO_NAME=`echo "${TRAVIS_REPO_SLUG}" | cut -d "/" -f 2`
+  - mkdir -p openturns.github.io/openturns/stats
+  - rm -rf openturns.github.io/ubuntu openturns.github.io/debian 
+  - cp -rv ubuntu debian openturns.github.io
+  - cd openturns.github.io
+  - touch .nojekyll
+  - git config user.email "support@travis-ci.com"
+  - git config user.name "Travis CI"
+  - git add -A .
+  - git commit -a -m "Travis build ${REPO_NAME} ${TRAVIS_BUILD_NUMBER}"
+  - git push --quiet origin master > /dev/null 2>&1
+

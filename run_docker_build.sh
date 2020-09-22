@@ -12,6 +12,9 @@ test $# -ge 1 || usage
 
 VERSION=$1
 
+gpg --import /io/private.key
+gpg --list-keys
+
 cd /tmp
 cp -rv /io/debian /io/ubuntu .
 for triplet in ubuntu:xenial:xUbuntu_16.04

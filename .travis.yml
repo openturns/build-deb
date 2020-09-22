@@ -15,7 +15,7 @@ after_success:
   - REPO_NAME=`echo "${TRAVIS_REPO_SLUG}" | cut -d "/" -f 2`
   - mkdir -p openturns.github.io/openturns/stats
   - rm -rf openturns.github.io/ubuntu openturns.github.io/debian 
-  - cp -rv ubuntu debian openturns.github.io
+  - cp -rv ubuntu debian public.key openturns.github.io
   - cd openturns.github.io
   - touch .nojekyll
   - git config user.email "support@travis-ci.com"

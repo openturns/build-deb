@@ -3,15 +3,11 @@ language: generic
 services:
   - docker
 
-env:
-  global:
-    - VERSION=1.15
-
 install:
   - docker build . -t debian
 
 script:
-  - docker run -v `pwd`:/io debian /io/run_docker_build.sh ${VERSION} `id -u` `id -g`
+  - docker run -v `pwd`:/io debian /io/run_docker_build.sh 1.15 `id -u` `id -g`
 
 after_success:
   - test "$TRAVIS_PULL_REQUEST" = "false" -a "$TRAVIS_BRANCH" = "master" || exit 0

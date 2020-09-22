@@ -20,17 +20,22 @@ do
   distro=`echo "${triplet}" | cut -d ":" -f 1`
   code=`echo "${triplet}" | cut -d ":" -f 2`
   tag=`echo "${triplet}" | cut -d ":" -f 3`
-  wget -e robots=off --no-check-certificate --recursive --no-parent -A.deb -P deb/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
+  wget --no-check-certificate --recursive --no-parent -A.deb -P deb/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
   tree deb/${distro}/${code}/
-  for debfile in `ls deb/${distro}/${code}/`
+  for debfile in `find deb/${distro}/${code}/ -name "*.deb"`
   do
-    reprepro --basedir ${distro} includedeb ${code} deb/${distro}/${code}/${debfile}
+    reprepro --basedir ${distro} includedeb ${code} ${debfile}
   done
+  tree ${distro}
 done
 
+uid=$2
+gid=$3
 if test -n "${uid}" -a -n "${gid}"
 then
-  sudo rm -rf /io/ubuntu /io/debian
-  sudo cp -rv ubuntu debian /io
-  sudo chown ${uid}:${gid} /io/ubuntu /io/debian
+  for distro in ubuntu
+  do
+    cp -rv ${distro}/* /io/${distro}
+    chown ${uid}:${gid} /io/${distro}
+  done
 fi

@@ -28,3 +28,6 @@ after_success:
   - git commit -a -m "Travis build ${REPO_NAME} ${TRAVIS_BUILD_NUMBER}"
   - git push --quiet origin master > /dev/null 2>&1
 
+env:
+  global:
+    secure: "fShQUpR2PVbB6U0vBYe+btPUXtNbB1UQBwxX9+H7Bxxq640zEXySAZuuM6fcDJUZ0pIiQWs9O4wigMyYvSIVO9HMS00EAQXOTXCWzQJnem/YU6P/O7Xtt2rEdwJ9Dd9BoQVH56r1l9gquR5w/TFw6qXaZ4Lc4vMz3gRhauMx6iPNquyGlpQ6uyi2gSCSsbDcW/1ozq5+KLJkl3ybbbEkZMQX0ipnVH5ESmTPF+icPAlm142khxzgqeU8UoeUkI70+CHcvfM9uf7FNB/zoDhCCKcycpLcjYGqDccqQrGqcfYBILGZP5WalrC+yseRHljzXkq4p4VSdhCXWz8a9VE/hl9LSKauIEFS7aMeL49Ac6NFzkyOxl9qsvWnYxb8dhnXQ5hLXyMwVBv71YViRZju6J+LIV13ZXzeDvZHQh5Y3wAjhO8TWVGRydH5358V9OTnfz319s9/E+E7V2adVRqBgrVzaXyxHD0ubZP95RvQG4H1FqL2fbMy0Q79yLDl7Sft5IrqCRMth6VvvFRWH7aFbSo2TfjG9HZ+adFgoDGxBo+voqqvDwRG818VBTr7XRbt1ityi9/6yqnyzrOsn14zom+eO+X80yN1FB6V6IKCbSunMgwApLRSorv9XXMTFeBbLfgtUGMTEG4x+NKw+3/1CqEApwNOLbnRsQT/LKA/Aig="

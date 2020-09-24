@@ -27,33 +27,64 @@ WORKDIR=$TMPDIR/workdir
 mkdir -p $WORKDIR && cd $WORKDIR
 
 # extract deb
-ar xv $DEB
-rm debian-binary
+dpkg -e $DEB
+dpkg -x $DEB .
+# tree
+# ar xv $DEB
+# rm debian-binary
+# 
+# # extract control
+# WORKDIR2=$TMPDIR/workdir2
+# mkdir -p $WORKDIR2
+# if test -f control.tar.xz
+# then
+#   tar xJf control.tar.xz -C $WORKDIR2
+# else
+#   # old format
+#   tar xzf control.tar.gz -C $WORKDIR2
+# fi
+# rm control.tar.*
+# 
+# # extract data
+# tar xJf data.tar.xz
+# rm data.tar.xz
+# 
+# # new control
+# mkdir DEBIAN
+# cp $WORKDIR2/control DEBIAN
 
-# extract control
-WORKDIR2=$TMPDIR/workdir2
-mkdir -p $WORKDIR2
-if test -f control.tar.xz
+# modify ot version
+OT_VERSION="1.15-1"
+OT_MODVERSION="$OT_VERSION$code"
+sed -i -e "s/$OT_VERSION/$OT_MODVERSION/" DEBIAN/control
+
+if ! grep -q "Version: $OT_MODVERSION" DEBIAN/control
 then
-  tar xJf control.tar.xz -C $WORKDIR2
-else
-  # old format
-  tar xzf control.tar.gz -C $WORKDIR2
+  sed -i -e "s/^\(Version: .*\)$/\1$code/" DEBIAN/control
 fi
-rm control.tar.*
+#sed -i "s|python:any|python|g" DEBIAN/control
+#sed -i "s|python3:any|python3|g" DEBIAN/control
 
-# extract data
-tar xJf data.tar.xz
-rm data.tar.xz
+# modify hmat control
+if test $DEB = *hmat-oss*
+then
+  HMAT_VERSION="1.6.1-1"
+  HMAT_MODVERSION="${HMAT_VERSION}${code}"
+  sed -i -e "s/= $HMAT_VERSION/= $HMAT_MODVERSION/" DEBIAN/control
+fi
 
-# new control
-mkdir DEBIAN
-cp $WORKDIR2/control DEBIAN
+# modify nlopt control
+if test $DEB = *nlopt*
+then
+  NLOPT_VERSION="2.4.2+dfsg-1~bpo70+1"
+  NLOPT_MODVERSION="${NLOPT_VERSION}${code}"
+  sed -i -e "s/= $NLOPT_VERSION/= $NLOPT_MODVERSION/" DEBIAN/control
+fi
+
 cat DEBIAN/control
-sed -i -e "s/^\(Version: .*\)$/\1${code}/" DEBIAN/control
 
 # rebuild deb
-tree $WORKDIR
+# tree $WORKDIR
 mkdir -p ${outdir}
 dpkg-deb -b $WORKDIR ${outdir}/$DEB2
 

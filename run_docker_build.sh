@@ -4,13 +4,9 @@ set -xe
 
 usage()
 {
-  echo "Usage: $0 VERSION [uid] [gid]"
+  echo "Usage: $0 [uid] [gid]"
   exit 1
 }
-
-test $# -ge 1 || usage
-
-VERSION=$1
 
 parent_dir=`readlink -f $0`
 parent_dir=`dirname $parent_dir`
@@ -45,8 +41,8 @@ do
   done
 done
 
-uid=$2
-gid=$3
+uid=$1
+gid=$2
 if test -n "${uid}" -a -n "${gid}"
 then
   for distro in ubuntu debian

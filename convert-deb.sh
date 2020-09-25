@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # add dist name to the version, cause reprepro (the .deb mirror mananger) do
-# not want to add the same package for 2 different codename of the same linux distrib (e.g ubuntu 12.04 and 13.04).
+# not want to add the same package for 2 different codename of the same linux distrib (e.g ubuntu 18.04 and 20.04).
 
 set -xe
 
@@ -29,29 +29,6 @@ mkdir -p $WORKDIR && cd $WORKDIR
 # extract deb
 dpkg -e $DEB
 dpkg -x $DEB .
-# tree
-# ar xv $DEB
-# rm debian-binary
-# 
-# # extract control
-# WORKDIR2=$TMPDIR/workdir2
-# mkdir -p $WORKDIR2
-# if test -f control.tar.xz
-# then
-#   tar xJf control.tar.xz -C $WORKDIR2
-# else
-#   # old format
-#   tar xzf control.tar.gz -C $WORKDIR2
-# fi
-# rm control.tar.*
-# 
-# # extract data
-# tar xJf data.tar.xz
-# rm data.tar.xz
-# 
-# # new control
-# mkdir DEBIAN
-# cp $WORKDIR2/control DEBIAN
 
 # modify ot version
 OT_VERSION="1.15-1"
@@ -62,11 +39,9 @@ if ! grep -q "Version: $OT_MODVERSION" DEBIAN/control
 then
   sed -i -e "s/^\(Version: .*\)$/\1$code/" DEBIAN/control
 fi
-#sed -i "s|python:any|python|g" DEBIAN/control
-#sed -i "s|python3:any|python3|g" DEBIAN/control
 
 # modify hmat control
-if test $DEB = *hmat-oss*
+if grep -q "hmat-oss" <<< "$DEB"
 then
   HMAT_VERSION="1.6.1-1"
   HMAT_MODVERSION="${HMAT_VERSION}${code}"
@@ -74,7 +49,7 @@ then
 fi
 
 # modify nlopt control
-if test $DEB = *nlopt*
+if grep -q "nlopt" <<< "$DEB"
 then
   NLOPT_VERSION="2.4.2+dfsg-1~bpo70+1"
   NLOPT_MODVERSION="${NLOPT_VERSION}${code}"

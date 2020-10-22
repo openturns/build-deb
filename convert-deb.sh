@@ -48,14 +48,6 @@ then
   sed -i -e "s/= $HMAT_VERSION/= $HMAT_MODVERSION/" DEBIAN/control
 fi
 
-# modify nlopt control
-if grep -q "nlopt" <<< "$DEB"
-then
-  NLOPT_VERSION="2.4.2+dfsg-1~bpo70+1"
-  NLOPT_MODVERSION="${NLOPT_VERSION}${code}"
-  sed -i -e "s/= $NLOPT_VERSION/= $NLOPT_MODVERSION/" DEBIAN/control
-fi
-
 cat DEBIAN/control
 
 # rebuild deb

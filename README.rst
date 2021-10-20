@@ -1,6 +1,5 @@
-.. image:: https://travis-ci.org/openturns/build-deb.svg
-    :target: https://travis-ci.org/openturns/build-deb
-
+.. image:: https://github.com/openturns/build-deb/actions/workflows/build.yml/badge.svg?branch=master
+    :target: https://github.com/openturns/build-deb/actions/workflows/build.yml
 
 Scripts to fetch debian packages from `OBS <https://build.opensuse.org/project/show/science:openturns>`_.
 

@@ -12,11 +12,11 @@ jobs:
       - name: Upload
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          git clone --depth 1 https://${{ secrets.GH_TOKEN }}@github.com/openturns/openturns.github.io.git
-          rm -rf openturns.github.io/apt
-          mkdir -p openturns.github.io/apt
-          cp -rv ubuntu debian public.key openturns.github.io/apt
-          cd openturns.github.io
+          git clone --depth 1 https://${{ secrets.GH_TOKEN }}@github.com/openturns/openturns.github.io.git /tmp/io
+          rm -rf /tmp/io/apt
+          mkdir -p /tmp/io/apt
+          cp -rv ubuntu debian public.key /tmp/io/apt
+          cd /tmp/io
           touch .nojekyll
           git config user.email "support@gh.com"
           git config user.name "GitHub Actions"

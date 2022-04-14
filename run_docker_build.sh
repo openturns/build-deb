@@ -11,13 +11,14 @@ usage()
 parent_dir=`readlink -f $0`
 parent_dir=`dirname $parent_dir`
 
-triplets="ubuntu:bionic:xUbuntu_18.04 ubuntu:focal:xUbuntu_20.04 ubuntu:impish:xUbuntu_21.10 debian:buster:Debian_10 debian:bullseye:Debian_11"
+triplets="ubuntu:focal:xUbuntu_20.04 ubuntu:impish:xUbuntu_21.10 debian:bullseye:Debian_11"
 cd /tmp
 for triplet in ${triplets}
 do
   distro=`echo "${triplet}" | cut -d ":" -f 1`
   code=`echo "${triplet}" | cut -d ":" -f 2`
   tag=`echo "${triplet}" | cut -d ":" -f 3`
+  wget --no-check-certificate --recursive --no-parent -A.deb -R "*dbgsym*" -P input/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/all/
   wget --no-check-certificate --recursive --no-parent -A.deb -R "*dbgsym*" -P input/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
   tree input/${distro}/${code}/
   for debfile in `find input/${distro}/${code}/ -name "*.deb"`
@@ -40,6 +41,8 @@ do
     reprepro --basedir ${distro} includedeb ${code} ${debfile}
   done
 done
+
+# sudo apt-get -y install liblapack-dev python3-numpy python3-six python3-pandas python3-pydot libceres-dev coinor-libipopt-dev libcminpack-dev libdlib-dev libnlopt-cxx-dev libhdf5-dev libmpc-dev libmpfr-dev libmuparser-dev libprimesieve-dev libtbb-dev libeigen3-dev libboost-serialization-dev libfftw3-dev && sudo dpkg -i output/ubuntu/focal/*.deb && exit 0
 
 uid=$1
 gid=$2

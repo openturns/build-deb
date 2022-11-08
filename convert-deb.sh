@@ -31,7 +31,7 @@ dpkg -e $DEB
 dpkg -x $DEB .
 
 # modify ot version
-OT_VERSION="1.20~rc1-1"
+OT_VERSION="1.20-1"
 OT_MODVERSION="$OT_VERSION$code"
 sed -i -e "s/$OT_VERSION/$OT_MODVERSION/" DEBIAN/control
 
@@ -43,7 +43,7 @@ fi
 # modify hmat control
 if grep -q "hmat-oss" <<< "$DEB"
 then
-  HMAT_VERSION="1.7.1-1"
+  HMAT_VERSION="1.8.1-1"
   sed -i -e "s/= ${HMAT_VERSION}/= ${HMAT_VERSION}${code}/" DEBIAN/control
 fi
 

@@ -31,7 +31,7 @@ dpkg -e $DEB
 dpkg -x $DEB .
 
 # modify ot version
-OT_VERSION="1.21~rc1-1"
+OT_VERSION="1.21-1"
 OT_MODVERSION="$OT_VERSION$code"
 sed -i -e "s/$OT_VERSION/$OT_MODVERSION/" DEBIAN/control
 
@@ -50,7 +50,7 @@ fi
 # modify pagmo control
 if grep -q "pagmo" <<< "$DEB"
 then
-  PAGMO_VERSION="2.18.0-1"
+  PAGMO_VERSION="2.19.0-1"
   sed -i -e "s/= ${PAGMO_VERSION}/= ${PAGMO_VERSION}${code}/" DEBIAN/control
 fi
 

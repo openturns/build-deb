@@ -31,7 +31,7 @@ dpkg -e $DEB
 dpkg -x $DEB .
 
 # modify ot version
-OT_VERSION="1.22-1"
+OT_VERSION="1.23~rc1-1"
 OT_MODVERSION="$OT_VERSION$code"
 sed -i -e "s/$OT_VERSION/$OT_MODVERSION/" DEBIAN/control
 
@@ -40,11 +40,11 @@ then
   sed -i -e "s/^\(Version: .*\)$/\1$code/" DEBIAN/control
 fi
 
-# modify hmat control
-if grep -q "hmat-oss" <<< "$DEB"
+# modify cuba control
+if grep -q "cuba" <<< "$DEB"
 then
-  HMAT_VERSION="1.9.0-1"
-  sed -i -e "s/= ${HMAT_VERSION}/= ${HMAT_VERSION}${code}/" DEBIAN/control
+  CUBA_VERSION="4.2.2-1"
+  sed -i -e "s/= ${CUBA_VERSION}/= ${CUBA_VERSION}${code}/" DEBIAN/control
 fi
 
 # modify pagmo control
@@ -54,7 +54,7 @@ then
   sed -i -e "s/= ${PAGMO_VERSION}/= ${PAGMO_VERSION}${code}/" DEBIAN/control
 fi
 
-# modify pagmo control
+# modify mixmod control
 if grep -q "mixmod" <<< "$DEB"
 then
   MIXMOD_VERSION="2.1.10-1"

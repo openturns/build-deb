@@ -31,7 +31,7 @@ dpkg -e $DEB
 dpkg -x $DEB .
 
 # modify ot version
-OT_VERSION="1.23~rc1-1"
+OT_VERSION="1.23-1"
 OT_MODVERSION="$OT_VERSION$code"
 sed -i -e "s/$OT_VERSION/$OT_MODVERSION/" DEBIAN/control
 

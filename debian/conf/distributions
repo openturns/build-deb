@@ -10,3 +10,9 @@ Components: main
 Contents: . .gz .bz2
 SignWith: 79357215ABB6E1BE42A1D9CB491167B96D820097
 
+Codename: trixie
+Architectures: amd64 source
+Components: main
+Contents: . .gz .bz2
+SignWith: 79357215ABB6E1BE42A1D9CB491167B96D820097
+

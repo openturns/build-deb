@@ -31,7 +31,7 @@ dpkg -e $DEB
 dpkg -x $DEB .
 
 # modify ot version
-OT_VERSION="1.25-1"
+OT_VERSION="1.26-1"
 OT_MODVERSION="$OT_VERSION$code"
 sed -i -e "s/$OT_VERSION/$OT_MODVERSION/" DEBIAN/control
 
@@ -66,6 +66,6 @@ cat DEBIAN/control
 # rebuild deb
 # tree $WORKDIR
 mkdir -p ${outdir}
-dpkg-deb -b $WORKDIR ${outdir}/$DEB2
+dpkg-deb -Zxz -b $WORKDIR ${outdir}/$DEB2
 
 rm -rf $TMPDIR

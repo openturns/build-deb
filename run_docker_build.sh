@@ -11,15 +11,15 @@ usage()
 parent_dir=`readlink -f $0`
 parent_dir=`dirname $parent_dir`
 
-triplets="ubuntu:oracular:xUbuntu_24.10 ubuntu:noble:xUbuntu_24.04 ubuntu:jammy:xUbuntu_22.04 debian:bullseye:Debian_11 debian:bookworm:Debian_12"
+triplets="ubuntu:jammy:xUbuntu_22.04 ubuntu:noble:xUbuntu_24.04 ubuntu:plucky:xUbuntu_25.04 debian:bullseye:Debian_11 debian:bookworm:Debian_12 debian:trixie:Debian_13"
 cd /tmp
 for triplet in ${triplets}
 do
   distro=`echo "${triplet}" | cut -d ":" -f 1`
   code=`echo "${triplet}" | cut -d ":" -f 2`
   tag=`echo "${triplet}" | cut -d ":" -f 3`
-  wget --no-check-certificate --recursive --no-parent -A.deb -R "*dbgsym*" -P input/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/all/
-  wget --no-check-certificate --recursive --no-parent -A.deb -R "*dbgsym*" -P input/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
+  wget --retry-connrefused --retry-on-host-error --waitretry=1 --read-timeout=20 --timeout=15 -t 10 --no-check-certificate --recursive --no-parent -A.deb -R "*dbgsym*" -P input/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/all/
+  wget --retry-connrefused --retry-on-host-error --waitretry=1 --read-timeout=20 --timeout=15 -t 10 --no-check-certificate --recursive --no-parent -A.deb -R "*dbgsym*" -P input/${distro}/${code} --no-directories https://download.opensuse.org/repositories/science:/openturns/${tag}/amd64/
   tree input/${distro}/${code}/
   for debfile in `find input/${distro}/${code}/ -name "*.deb"`
   do

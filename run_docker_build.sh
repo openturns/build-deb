@@ -11,7 +11,7 @@ usage()
 parent_dir=`readlink -f $0`
 parent_dir=`dirname $parent_dir`
 
-triplets="ubuntu:jammy:xUbuntu_22.04 ubuntu:noble:xUbuntu_24.04 ubuntu:plucky:xUbuntu_25.04 debian:bullseye:Debian_11 debian:bookworm:Debian_12 debian:trixie:Debian_13"
+triplets="ubuntu:jammy:xUbuntu_22.04 ubuntu:noble:xUbuntu_24.04 ubuntu:resolute:xUbuntu_26.04 debian:bullseye:Debian_11 debian:bookworm:Debian_12 debian:trixie:Debian_13"
 cd /tmp
 for triplet in ${triplets}
 do
